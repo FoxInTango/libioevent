@@ -35,6 +35,11 @@ namespace foxintango {
         public:
            IOEndpointStatus boot();
            IOEndpointStatus status();
+        public:
+            int sessionCount();
+            
+            IOSession* sessionAt(const unsigned int& index);
+            IOSession* sessionFrom(const char* ip);
     };
 }
 
