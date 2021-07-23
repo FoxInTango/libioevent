@@ -5,17 +5,17 @@
 
 EXTERN_C_BEGIN
 namespace foxintango {
-    class IOEndpoint;
-    typedef enum _IOSessionStatus {} IOSessionStatus;
-    class foxintangoAPI IOSession {
-        private:
-            IOEndpoint* endpoint;
-        public:
-            IOSession();
-           ~IOSession();
-        public:
-           int send(unsigned char* buffer,const unsigned int& length);
-    };
+class IOEndpoint;
+typedef enum _IOSessionStatus {} IOSessionStatus;
+class foxintangoAPI IOSession {
+private:
+    IOEndpoint* endpoint;
+public:
+    IOSession();
+   ~IOSession();
+public:
+    int send(unsigned char* buffer,const unsigned int& length);
+};
 }
 
 EXTERN_C_END
