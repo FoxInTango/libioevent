@@ -6,7 +6,7 @@
 EXTERN_C_BEGIN
 namespace foxintango {
     class IOEndpoint;
-    typedef enum _IOEndpointStatus {} IOEndpointStatus;
+    typedef enum _IOSessionStatus {} IOSessionStatus;
     class foxintangoAPI IOSession {
         private:
             IOEndpoint* endpoint;
