@@ -39,7 +39,7 @@ TARGET_LIB_INCLUDE = # 示例: -I/usr/local/libcipher/include
 TARGET_LIB_BINARY  = # 示例: -L/usr/local/libcipher/lib
 TARGET_LD_FLAGS    = # 示例: -L/usr/local/libcipher/lib
 # 需要链接的库
-TARGET_LIBS = -lstdc++
+TARGET_LIBS = -lstdc++ -lmodel -lmodule
 # 链接标志
 TARGET_LIB_PIC_SHARED  = -fPIC
 TARGET_LIB_PIC_STATIC  = 

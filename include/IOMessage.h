@@ -21,26 +21,16 @@
  * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
  * IN THE SOFTWARE.
  */
-#include "../include/IOSessionGroup.h"
-using namespace foxintango;
-
-#include <map>
+#ifndef _IO_MESSAGE_H_
+#define _IO_MESSAGE_H_
+#include <libcpp/libcpp.h>
 
 namespaceBegin(foxintango)
-class IOSessionGroupIMPL {
+class IOMessage {
 public:
-    IOSessionGroupIMPL() {
-    }
-    ~IOSessionGroupIMPL() {
-
-    }
+public:
+    IOMessage();
+   ~IOMessage();
 };
 namespaceEnd
-
-IOSessionGroup::IOSessionGroup() {
-
-}
-
-IOSessionGroup::~IOSessionGroup() {
-
-}
+#endif

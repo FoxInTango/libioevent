@@ -21,26 +21,32 @@
  * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
  * IN THE SOFTWARE.
  */
-#include "../include/IOSessionGroup.h"
+#include "../include/libioevent.h"
 using namespace foxintango;
+#include <iostream>
 
-#include <map>
+int libioevent_startup(const Model& model) {
+    ME* engines = model.subelementAt("engines");
 
-namespaceBegin(foxintango)
-class IOSessionGroupIMPL {
-public:
-    IOSessionGroupIMPL() {
+    if(engines) {
+        std::cout <<"engines found."<<std::endl;
+        for(int i = 0;i < engines->subelementCount();i ++) {
+            ModelElement& e = *(engines->subelementAt(i));
+            if(e) {
+                const char* s = "path";
+                char* path = *(e[s]);
+                Module* m = new Module(path);
+                ModuleInterface* interface = m->interface();
+
+                if(interface) {
+                    IOEngine* engine = static_cast<IOEngine*>(interface->createObject("engine"));
+                }
+            }
+        }
     }
-    ~IOSessionGroupIMPL() {
-
-    }
-};
-namespaceEnd
-
-IOSessionGroup::IOSessionGroup() {
-
+    return 0;
 }
 
-IOSessionGroup::~IOSessionGroup() {
-
+int libioevent_shutdown() {
+    return 0;
 }
