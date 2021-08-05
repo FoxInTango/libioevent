@@ -42,3 +42,11 @@ unsigned int IOEngine::appendWithName(IOEngine* engine,char* name) {
 
     return INSTANCE_ENGINE_MAP.size();
 }
+
+IOEngine::IOEngine() {
+
+}
+
+IOEngine::~IOEngine() {
+
+}

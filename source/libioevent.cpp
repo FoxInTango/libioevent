@@ -29,8 +29,8 @@ int libioevent_startup(const Model& model) {
     ME* engines = model.subelementAt("engines");
 
     if(engines) {
-        std::cout <<"engines found."<<std::endl;
-        for(int i = 0;i < engines->subelementCount();i ++) {
+        std::cout <<"IOEvent : engines found."<<std::endl;
+        for(unsigned int i = 0;i < engines->subelementCount();i ++) {
             ModelElement& e = *(engines->subelementAt(i));
             if(e) {
                 const char* s = "path";
@@ -43,6 +43,8 @@ int libioevent_startup(const Model& model) {
                 }
             }
         }
+    } else {
+      std::cout << "IOEvent : no engine found." << std::endl;
     }
     return 0;
 }
