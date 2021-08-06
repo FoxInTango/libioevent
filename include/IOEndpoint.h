@@ -35,13 +35,22 @@ typedef enum _IOEndpointType
     IOET_UDP,
     IOET_TCP_SERVER,
     IOET_TCP_CLIENT,
-    IOET_HTTP_SERVEER,
+    IOET_HTTP_SERVER,
     IOET_HTTP_CLIENT,
     IOET_WS_SERVER,
     IOET_WS_CLIENT
 }IOEndpointType;
 
 typedef enum _IOEndpointStatus {} IOEndpointStatus;
+/** Model
+ *  {
+ *     "type":"",
+ *     "listen":{
+ *                  "ip":"127.0.0.1",
+ *                  "port":"32324"
+ *                  }
+ *  }
+ */
 class IOEndpointIMPL;
 class foxintangoAPI IOEndpoint {
 private:
