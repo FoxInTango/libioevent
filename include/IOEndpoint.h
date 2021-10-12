@@ -32,14 +32,26 @@ EXTERN_C_BEGIN
 namespaceBegin(foxintango)
 typedef enum _IOEndpointType 
 {
-    IOET_UDP,
-    IOET_TCP_SERVER,
-    IOET_TCP_CLIENT,
-    IOET_HTTP_SERVER,
-    IOET_HTTP_CLIENT,
-    IOET_WS_SERVER,
-    IOET_WS_CLIENT
+    IOET_UDP         = 0b00000000000000001,
+    IOET_TCP_SERVER  = 0b00000000000000010,
+    IOET_TCP_CLIENT  = 0b00000000000000100,
+    IOET_HTTP_SERVER = 0b00000000000001000,
+    IOET_HTTP_CLIENT = 0b00000000000010000,
+    IOET_WS_SERVER   = 0b00000000000100000,
+    IOET_WS_CLIENT   = 0b00000000001000000,
+    IOET_UDP_PROXY   = 0b00000000010000000,
+    IOET_TCP_PROXY   = 0b00000000100000000,
+    IOET_HTTP_PROXY  = 0b00000001000000000,
+    IOET_WS_PROXY    = 0b00000010000000000,
 }IOEndpointType;
+
+#define IOET_UDP_STRING         "IOET_UDP"
+#define IOET_TCP_SERVER_STRING  "IOET_TCP_SERVER"
+#define IOET_TCP_CLIENT_STRING  "IOET_TCP_CLIENT"
+#define IOET_HTTP_SERVER_STRING "IOET_HTTP_SERVER"
+#define IOET_HTTP_CLIENT_STRING "IOET_HTTP_CLIENT"
+#define IOET_WS_SERVER_STRING   "IOET_WS_SERVER"
+#define IOET_WS_CLIENT_STRING   "IOET_WS_CLIENT" 
 
 typedef enum _IOEndpointStatus {} IOEndpointStatus;
 /** Model
@@ -55,6 +67,8 @@ class IOEndpointIMPL;
 class foxintangoAPI IOEndpoint {
 private:
     IOEndpointIMPL* impl;
+protected:
+    IOEndpointStatus endpointStatus;
 public:
     IOEndpoint();
     IOEndpoint(const Model& model);
@@ -66,17 +80,23 @@ public:
     int appendSessionHandler(IOSessionHandler* handler);
     int removeSessionHandler(IOSessionHandler* handler);
 public:
-    IOEndpointStatus boot();
+    virtual IOEndpointStatus boot()   = 0;
+    virtual IOEndpointStatus stop()   = 0;
+public:
     IOEndpointStatus status();
 public:
     int send(char* buffer,const unsigned int& length);
     int read(char* buffer,const unsigned int& length);
     unsigned int readable();
+protected:
+    unsigned int appendSession(IOSession* session,const char* from);
+    unsigned int removeSession(IOSession* session);
+    unsigned int removeSession(const char* from);
 public:
-    int sessionCount();
+    unsigned int sessionCount();
             
     IOSession* sessionAt(const unsigned int& index);
-    IOSession* sessionFrom(const char* ip);
+    IOSession* sessionFrom(const char* from);
 };
 namespaceEnd
 EXTERN_C_END

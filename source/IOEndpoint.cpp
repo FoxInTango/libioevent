@@ -23,13 +23,34 @@
  */
 #include "../include/IOEndpoint.h"
 using namespace foxintango;
+#include <iostream>
+#include <vector>
+#include <map>
+
+namespaceBegin(foxintango)
+class IOEndpointIMPL {
+public:
+    std::vector<std::string> sessionList;
+    std::map<std::string,IOSession*> sessionMap;
+public:
+    IOEndpointIMPL() {
+
+    }
+
+    ~IOEndpointIMPL() {
+
+    }
+};
+namespaceEnd
 
 IOEndpoint::IOEndpoint() {
+    this->impl = new IOEndpointIMPL();
 }
-IOEndpoint::IOEndpoint(const Model& type) {
 
+IOEndpoint::IOEndpoint(const Model& type) {
+    this->impl = new IOEndpointIMPL();
 }
 
 IOEndpoint::~IOEndpoint() {
-
+    if(this->impl) delete this->impl;
 }
