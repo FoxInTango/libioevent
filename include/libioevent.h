@@ -34,6 +34,10 @@
 #include <libmodel/libmodel.h>
 #include <libcpp/libcpp.h>
 using namespace foxintango;
+
+struct ioevent_model_s {
+
+};
 #ifdef __cplusplus
 extern "C" {
 #endif
