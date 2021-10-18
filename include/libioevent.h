@@ -36,7 +36,7 @@
 using namespace foxintango;
 
 struct ioevent_model_s {
-
+    char* name;
 };
 #ifdef __cplusplus
 extern "C" {
