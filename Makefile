@@ -140,7 +140,7 @@ install :
 	rm -rf /usr/local/include/libioevent
 	mkdir /usr/local/include/libioevent
 	cp  -rf ./include/* /usr/local/include/libioevent
-	cp  -rf ./lib/libioevent.so /usr/local/lib
+	cp  -rf ./lib/${TARGET_NAME} /usr/local/lib
 uninstall : 
 	rm -rf /usr/local/include/libioevent
-	rm -rf /usr/local/lib/libioevent.so
+	rm -rf /usr/local/lib/${TARGET_NAME}
