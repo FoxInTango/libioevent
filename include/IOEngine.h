@@ -27,6 +27,9 @@
 #include <libcpp/libcpp.h>
 EXTERN_C_BEGIN
 namespaceBegin(foxintango)
+struct io_engine_model_s {
+
+};
 class foxintangoAPI IOEngine {
 public:
     static IOEngine* engineWithName(char* name);
