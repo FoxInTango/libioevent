@@ -45,7 +45,8 @@ struct libioevent_model_s {
 extern "C" {
 #endif
 
-/** Load IOEngine Module
+/** Load IOEngine   Modules
+ *  Load IOBusiness Modules
  * */
 int foxintangoAPI libioevent_startup(const Model& model);
 int foxintangoAPI libioevent_shutdown();
