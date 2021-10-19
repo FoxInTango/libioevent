@@ -63,6 +63,12 @@ typedef enum _IOEndpointStatus {} IOEndpointStatus;
  *                  }
  *  }
  */
+struct io_endpoint_model_t {
+    IOEndpointType type;
+    char* name;
+    char* ip;
+    int port;
+};
 class IOEndpointIMPL;
 class foxintangoAPI IOEndpoint {
 private:
