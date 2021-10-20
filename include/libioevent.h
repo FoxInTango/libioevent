@@ -36,6 +36,7 @@
 using namespace foxintango;
 
 struct libioevent_model_s {
+    struct struct_header_s header;
     char* name;
     char* engines;
     char* handlers;
