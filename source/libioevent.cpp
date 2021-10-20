@@ -77,8 +77,9 @@ int libioevent_startup(const Model& model) {
                         Model em(ModelElement::MET_MAP);
                         ME es("IOET_UDP");
                         em.insertSubelement(&es,"type");
-                        engine->createEndpoint(em);
-                        delete engine;
+                        IOEndpoint* p = engine->createEndpoint(em);
+                        if(p) { p->boot(); } else printf("NO ENDPOINT CREATED. \n");
+                        //delete engine;
                     } else {
                         std::cout << "Module : IOEngineLWS - IOEngine create failed." << std::endl;
                     }
