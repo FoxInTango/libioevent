@@ -6,16 +6,18 @@ IO Engine For C++
 Application
     |
     |
-libioevent
+ libioevent-----------------------------------------------------------------------IOFilter----------IOSwitch
+    |                                                                                                 |
+    |                                                                                                 |
+  IOEngine                                                                                          IOHandler
     |
     |
- IOEngine
+  IOProtocolRAW    IOProtocolMTP    IOProtocolHTTP    IOProtocolWS
     |
     |
- IOProtocolRAW    IOProtocolMTP    IOProtocolHTTP    IOProtocolWS
+  IOStreamRAW      IOStreamTLS
     |
     |
- IOStreamRAW      IOStreamTLS
-    |
-    |
- IOEndpointUDP    IOEndpointTCP    IOEndpointUNIX    IOEndpointNETLINK
+  IOEndpointUDP    IOEndpointTCP    IOEndpointUNIX    IOEndpointNETLINK
+
+
