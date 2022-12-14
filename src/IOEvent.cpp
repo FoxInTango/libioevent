@@ -21,7 +21,7 @@
  * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
  * IN THE SOFTWARE.
  */
-#include "../include/IOEvent.h"
+#include "IOEvent.h"
 
 using namespace foxintango;
 
