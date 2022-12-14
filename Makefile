@@ -1,7 +1,7 @@
-CC=clang
-AS=llvm-as
-AR=llvm-ar
-LD=clang
+CC=gcc
+AS=as
+AR=ar
+LD=ld
 CP=llvm-objcopy
 
 PLATFORM_ARCH         = $(shell uname -s)

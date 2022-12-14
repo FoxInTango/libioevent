@@ -35,6 +35,7 @@
 #include <libcpp/libcpp.h>
 using namespace foxintango;
 
+/*
 struct libioevent_model_s {
     struct struct_header_s header;
     char* name;
@@ -42,6 +43,7 @@ struct libioevent_model_s {
     char* handlers;
     struct io_event_endpoint_model_s* endpoint_models;
 };
+*/
 #ifdef __cplusplus
 extern "C" {
 #endif
