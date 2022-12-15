@@ -47,5 +47,15 @@ public:
    int write();
 };
 
+// SSL Socket https://wiki.openssl.org/index.php/Simple_TLS_Server
+//            https://wiki.openssl.org/index.php/Category:Examples
+//            https://halfrost.com/https-extensions/
+//            https://www.cnblogs.com/jiangzhaowei/p/9341466.html
+//            https://www.jianshu.com/p/527cc683b2be
+
+/**
+ * cer 用于存储公钥证书的文件格式
+ */
+
 namespaceEnd
 #endif
