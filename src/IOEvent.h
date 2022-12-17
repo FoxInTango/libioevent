@@ -25,6 +25,7 @@
 #define _IO_EVENT_H_
 
 #include <libcpp/libcpp.h>
+#include <libevent/libevent.h>
 
 EXTERN_C_BEGIN
 

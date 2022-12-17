@@ -52,6 +52,21 @@ public:
 //            https://halfrost.com/https-extensions/
 //            https://www.cnblogs.com/jiangzhaowei/p/9341466.html
 //            https://www.jianshu.com/p/527cc683b2be
+//            https://blog.csdn.net/mrpre/article/details/77867439
+
+/** tls 扩展 SNI  https://blog.csdn.net/justinzengTM/article/details/105346262
+ *  SNI扩展是用来解决一台服务器绑定多个域名，申请了多张证书，在建立连接的身份验证阶段服务器因为不知道客户端浏览器访问的是哪个域名，所以无法判断该发送哪个证书的问题。即服务器使用到了“虚拟主机”的场景
+ *  https://www.cnblogs.com/sxiszero/p/11153112.html
+ *  https://blog.csdn.net/danielzhou1025/article/details/114115151 SSL_set_cipher_list
+ *  https://strawberrytree.top/blog/2020/09/17/%E4%BD%BF%E7%94%A8openssl%E4%BD%BF%E7%94%A8%E5%A4%96%E9%83%A8psk%E8%BF%9B%E8%A1%8C%E6%8F%A1%E6%89%8B%EF%BC%88tls1-3%EF%BC%89/
+ *  双向认证：SSL_CTX_load_verify_locations
+ *  https://blog.csdn.net/wangsifu2009/article/details/7569566
+ *  https://www.cnblogs.com/lsdb/p/9391979.html
+ *  双向认证模式:
+ *  https://blog.csdn.net/u013919153/article/details/78616737
+ * 
+ *  https://halfrost.com/https-begin/
+ */
 
 /**
  * cer 用于存储公钥证书的文件格式
