@@ -66,6 +66,7 @@ public:
  *  https://blog.csdn.net/u013919153/article/details/78616737
  * 
  *  https://halfrost.com/https-begin/
+ *  https://strawberrytree.top/blog/2020/09/28/%E4%BD%BF%E7%94%A8openssl%E5%86%85%E7%BD%AE%E7%9A%84%E5%AF%86%E7%A0%81%E7%AE%97%E6%B3%95%E5%AE%9A%E4%B9%89%E6%96%B0%E7%9A%84%E5%8A%A0%E5%AF%86%E5%A5%97%E4%BB%B6-tls1-3/
  */
 
 /**
