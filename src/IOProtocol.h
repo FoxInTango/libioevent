@@ -32,5 +32,6 @@ public:
     IOProtocol();
    ~IOProtocol();
 };
+class IOProtocolChain;
 namespaceEnd
 #endif

@@ -6,7 +6,7 @@ IO Engine For C++
 Application
     |
     |
- libioevent-----------------------------------------------------------------------IOFilter----------IOSwitch
+ libioevent-----------------------------------------------------------------------IOFilter----------IOSwitch|IOProxy
     |                                                                                                 |
     |                                                                                                 |
   IOEngine                                                                                          IOHandler
@@ -19,5 +19,7 @@ Application
     |
     |
   IOEndpointUDP    IOEndpointTCP    IOEndpointUNIX    IOEndpointNETLINK
+
+  # IOFileStream -- mmap splice tee .etc
 
 
