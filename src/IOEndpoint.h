@@ -32,6 +32,7 @@ EXTERN_C_BEGIN
 namespaceBegin(foxintango)
 typedef enum _IOEndpointType 
 {
+    /*
     IOET_UDP         = 0b00000000000000001,
     IOET_TCP_SERVER  = 0b00000000000000010,
     IOET_TCP_CLIENT  = 0b00000000000000100,
@@ -43,6 +44,12 @@ typedef enum _IOEndpointType
     IOET_TCP_PROXY   = 0b00000000100000000,
     IOET_HTTP_PROXY  = 0b00000001000000000,
     IOET_WS_PROXY    = 0b00000010000000000,
+    */
+    IOET_LISTEN_UDP,
+    IOET_LISTEN_TCP,
+    IOET_LISTEN_UNIX,
+    IOET_LISTEN_NETLINK,
+    IOET_CONNECT
 }IOEndpointType;
 
 #define IOET_UDP_STRING         "IOET_UDP"
@@ -65,9 +72,10 @@ typedef enum _IOEndpointStatus {} IOEndpointStatus;
  */
 struct io_endpoint_model_t {
     IOEndpointType type;
+    int socket;
     char* name;
-    char* ip;
-    int port;
+    char* address;
+    unsigned short port;
 };
 class IOEndpointIMPL;
 class foxintangoAPI IOEndpoint {
@@ -77,8 +85,9 @@ protected:
     IOEndpointStatus endpointStatus;
 public:
     IOEndpoint();
+    IOEndpoint(const char* address,const unsigned short port,const IOEndpointType& type);
     IOEndpoint(const Model& model);
-   ~IOEndpoint();
+    virtual ~IOEndpoint();
 public:
     int appendEventHandler(IOEventHandler* handler);
     int removeEventHandler(IOEventHandler* handler);
@@ -88,12 +97,15 @@ public:
 public:
     virtual IOEndpointStatus boot()   = 0;
     virtual IOEndpointStatus stop()   = 0;
+    virtual IOEndpointStatus status();
+    virtual int getSocket() const;
 public:
-    IOEndpointStatus status();
-public:
-    int send(char* buffer,const unsigned int& length);
-    int read(char* buffer,const unsigned int& length);
-    unsigned int readable();
+    virtual int listen(const char* address, const unsigned short port);
+    virtual int accept();
+    virtual int connect();/********************/
+    virtual int send(char* buffer,const unsigned int& length);
+    virtual int read(char* buffer,const unsigned int& length);
+    virtual unsigned int readable();
 protected:
     unsigned int appendSession(IOSession* session,const char* from);
     unsigned int removeSession(IOSession* session);

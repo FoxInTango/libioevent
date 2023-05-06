@@ -30,6 +30,7 @@ using namespace foxintango;
 namespaceBegin(foxintango)
 class IOEndpointIMPL {
 public:
+    io_endpoint_model_t model;
     std::vector<std::string> sessionList;
     std::map<std::string,IOSession*> sessionMap;
 public:
