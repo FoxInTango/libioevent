@@ -39,6 +39,7 @@ public:
     virtual ~IOEngine();
 public:
     virtual IOEndpoint* createEndpoint(const Model& model) = 0;
+    virtual IOEndpoint* createEndpoint(const char* address,const unsigned short& port,const IOEndpointType& type) = 0;
 };
 namespaceEnd
 EXTERN_C_END

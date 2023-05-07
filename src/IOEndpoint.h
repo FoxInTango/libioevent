@@ -49,7 +49,10 @@ typedef enum _IOEndpointType
     IOET_LISTEN_TCP,
     IOET_LISTEN_UNIX,
     IOET_LISTEN_NETLINK,
-    IOET_CONNECT
+    IOET_CONNECT_UDP,
+    IOET_CONNECT_TCP,
+    IOET_CONNECT_UNIX,
+    IOET_CONNECT_NETLINK
 }IOEndpointType;
 
 #define IOET_UDP_STRING         "IOET_UDP"
@@ -60,7 +63,15 @@ typedef enum _IOEndpointType
 #define IOET_WS_SERVER_STRING   "IOET_WS_SERVER"
 #define IOET_WS_CLIENT_STRING   "IOET_WS_CLIENT" 
 
-typedef enum _IOEndpointStatus {} IOEndpointStatus;
+typedef enum _IOEndpointStatus {
+    IOES_OP_CLEAN,
+    IOES_OP_FAILED,
+    IOES_OP_OK,// Operation Completed.
+    IOES_READABLE,
+    IOES_UNREADABLE,
+    IOES_WRITEABLE,
+    IOES_UNWRITEABLE
+} IOEndpointStatus;
 /** Model
  *  {
  *     "type":"",
@@ -70,51 +81,40 @@ typedef enum _IOEndpointStatus {} IOEndpointStatus;
  *                  }
  *  }
  */
-struct io_endpoint_model_t {
-    IOEndpointType type;
-    int socket;
-    char* name;
-    char* address;
-    unsigned short port;
-};
+
 class IOEndpointIMPL;
 class foxintangoAPI IOEndpoint {
 private:
     IOEndpointIMPL* impl;
-protected:
-    IOEndpointStatus endpointStatus;
 public:
     IOEndpoint();
-    IOEndpoint(const char* address,const unsigned short port,const IOEndpointType& type);
     IOEndpoint(const Model& model);
+    IOEndpoint(const char* address,const unsigned short port,const IOEndpointType& type);
     virtual ~IOEndpoint();
 public:
-    int appendEventHandler(IOEventHandler* handler);
-    int removeEventHandler(IOEventHandler* handler);
-           
-    int appendSessionHandler(IOSessionHandler* handler);
-    int removeSessionHandler(IOSessionHandler* handler);
-public:
-    virtual IOEndpointStatus boot()   = 0;
-    virtual IOEndpointStatus stop()   = 0;
+    unsigned int sessionCount();
+    IOSession* sessionAt(const unsigned int& index);
+    IOSession* sessionFrom(const char* from);
+    virtual int socketID() const;
     virtual IOEndpointStatus status();
-    virtual int getSocket() const;
 public:
-    virtual int listen(const char* address, const unsigned short port);
-    virtual int accept();
-    virtual int connect();/********************/
-    virtual int send(char* buffer,const unsigned int& length);
-    virtual int read(char* buffer,const unsigned int& length);
-    virtual unsigned int readable();
+    virtual IOEndpointStatus listenIO();
+    virtual IOEndpointStatus listenIO(const char* address, const unsigned short port);
+    virtual IOEndpointStatus acceptIO();
+    virtual IOEndpointStatus connectTo(const char* address, const unsigned short port, const IOEndpointType& type = IOEndpointType::IOET_LISTEN_TCP);
+    virtual IOEndpointStatus sendData(char* buffer,const unsigned int& length);
+    virtual IOEndpointStatus readData(char* buffer,const unsigned int& length);
+    virtual IOEndpointStatus readable();
+    virtual IOEndpointStatus clear();
 protected:
     unsigned int appendSession(IOSession* session,const char* from);
     unsigned int removeSession(IOSession* session);
     unsigned int removeSession(const char* from);
 public:
-    unsigned int sessionCount();
-            
-    IOSession* sessionAt(const unsigned int& index);
-    IOSession* sessionFrom(const char* from);
+    int appendEventHandler(IOEventHandler* handler);
+    int removeEventHandler(IOEventHandler* handler);
+    int appendSessionHandler(IOSessionHandler* handler);
+    int removeSessionHandler(IOSessionHandler* handler);
 };
 namespaceEnd
 EXTERN_C_END
