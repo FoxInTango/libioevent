@@ -53,7 +53,7 @@ TARGET_HEADER_DIRS += $(foreach dir,$(PROJECT_DIRS),-I$(dir))                   
 
 
 # 需要链接的库
-TARGET_LIBS = -lstdc++
+TARGET_LIBS = -lstdc++ -lmodule
 
 ASFLAGS =
 CCFLAGS = -c -fPIC -Wall -fvisibility=hidden -std=c++11

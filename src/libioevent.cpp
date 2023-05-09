@@ -78,7 +78,7 @@ int libioevent_startup(const Model& model) {
                         ME es("IOET_UDP");
                         em.insertSubelement(&es,"type");
                         IOEndpoint* p = engine->createEndpoint(em);
-                        if(p) { p->boot(); } else printf("NO ENDPOINT CREATED. \n");
+                        //if(p) { p->boot(); } else printf("NO ENDPOINT CREATED. \n");
                         //delete engine;
                     } else {
                         std::cout << "Module : IOEngineLWS - IOEngine create failed." << std::endl;
@@ -89,6 +89,10 @@ int libioevent_startup(const Model& model) {
     } else {
       std::cout << "IOEvent : no engine found." << std::endl;
     }
+    return 0;
+}
+
+int foxintangoAPI libioevent_reload(const Model& model) {
     return 0;
 }
 
