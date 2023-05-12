@@ -25,6 +25,7 @@
 #define _IO_ENDPOINT_H_
 
 #include "IOHandler.h"
+#include <libevent/libevent.h>
 #include <libmodel/libmodel.h>
 #include <libcpp/libcpp.h>
 
@@ -83,7 +84,7 @@ typedef enum _IOEndpointStatus {
  */
 
 class IOEndpointIMPL;
-class foxintangoAPI IOEndpoint {
+class foxintangoAPI IOEndpoint :public EventTarget {
 private:
     IOEndpointIMPL* impl;
 public:
@@ -98,14 +99,14 @@ public:
     virtual int socketID() const;
     virtual IOEndpointStatus status();
 public:
-    virtual IOEndpointStatus listenIO();
-    virtual IOEndpointStatus listenIO(const char* address, const unsigned short port);
-    virtual IOEndpointStatus acceptIO();
-    virtual IOEndpointStatus connectTo(const char* address, const unsigned short port, const IOEndpointType& type = IOEndpointType::IOET_LISTEN_TCP);
-    virtual IOEndpointStatus sendData(char* buffer,const unsigned int& length);
-    virtual IOEndpointStatus readData(char* buffer,const unsigned int& length);
+    virtual IOEndpointStatus listen();
+    virtual IOEndpointStatus listen(const char* address, const unsigned short port);
+    virtual IOEndpointStatus accept();
+    virtual IOEndpointStatus connect(const char* address, const unsigned short port, const IOEndpointType& type = IOEndpointType::IOET_LISTEN_TCP);
+    virtual IOEndpointStatus send(char* buffer,const unsigned int& length);
+    virtual IOEndpointStatus read(char* buffer,const unsigned int& length);
     virtual IOEndpointStatus readable();
-    virtual IOEndpointStatus clear();
+    virtual IOEndpointStatus close();
 protected:
     unsigned int appendSession(IOSession* session,const char* from);
     unsigned int removeSession(IOSession* session);

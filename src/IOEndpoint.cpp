@@ -42,6 +42,13 @@ using namespace foxintango;
 #include <fcntl.h>
 #include <sys/sendfile.h>
 
+inline int platform_bind();
+inline int platform_listen();
+inline int platform_accept();
+inline int platform_connect();
+inline int platform_read();
+inline int platform_write();
+inline int platform_close();
 namespaceBegin(foxintango)
 struct io_endpoint_model_s {
     bool  initialized;
@@ -88,12 +95,12 @@ IOEndpoint::IOEndpoint(const char* address, const unsigned short port, const IOE
 
 IOEndpoint::~IOEndpoint() {
     if(this->impl) {
-        clear();
+        close();
         delete this->impl;
     }
 }
 
-IOEndpointStatus IOEndpoint::listenIO() {
+IOEndpointStatus IOEndpoint::listen() {
     if(this->impl && this->impl->model.address.length()){
         // TODO 清理
         struct sockaddr_in listen_addr;
@@ -127,12 +134,12 @@ IOEndpointStatus IOEndpoint::listenIO() {
             }
         }
         
-        bind(this->impl->model.socket, (struct sockaddr*)&listen_addr, sizeof(listen_addr));
-        listen(this->impl->model.socket, 0);
+        //bind(this->impl->model.socket, (struct sockaddr*)&listen_addr, sizeof(listen_addr));
+        //listen(this->impl->model.socket, 0);
     }
     return IOEndpointStatus::IOES_OP_FAILED;
 }
-IOEndpointStatus IOEndpoint::listenIO(const char* address, const unsigned short port){
+IOEndpointStatus IOEndpoint::listen(const char* address, const unsigned short port){
     if (this->impl) {
         // TODO 清理
         this->impl->model.address = address;
@@ -167,31 +174,31 @@ IOEndpointStatus IOEndpoint::listenIO(const char* address, const unsigned short 
             }
         }
 
-        bind(this->impl->model.socket, (struct sockaddr*)&listen_addr, sizeof(listen_addr));
-        listen(this->impl->model.socket, 0);
+        //bind(this->impl->model.socket, (struct sockaddr*)&listen_addr, sizeof(listen_addr));
+        //listen(this->impl->model.socket, 0);
     }
     return IOEndpointStatus::IOES_OP_FAILED;
     return IOEndpointStatus::IOES_OP_FAILED;
 }
-IOEndpointStatus IOEndpoint::acceptIO(){
+IOEndpointStatus IOEndpoint::accept(){
     //accept(listen_sock, &remote_address, &remote_count)
     return IOEndpointStatus::IOES_OP_FAILED;
 }
-IOEndpointStatus IOEndpoint::connectTo(const char* address, const unsigned short port, const IOEndpointType& type){
+IOEndpointStatus IOEndpoint::connect(const char* address, const unsigned short port, const IOEndpointType& type){
     return IOEndpointStatus::IOES_OP_FAILED;
 }
-IOEndpointStatus IOEndpoint::sendData(char* buffer, const unsigned int& length){
+IOEndpointStatus IOEndpoint::send(char* buffer, const unsigned int& length){
     return IOEndpointStatus::IOES_OP_FAILED;
 }
-IOEndpointStatus IOEndpoint::readData(char* buffer, const unsigned int& length){
+IOEndpointStatus IOEndpoint::read(char* buffer, const unsigned int& length){
     return IOEndpointStatus::IOES_OP_FAILED;
 }
 IOEndpointStatus IOEndpoint::readable() {
     return IOEndpointStatus::IOES_UNREADABLE;
 }
-IOEndpointStatus IOEndpoint::clear(){
+IOEndpointStatus IOEndpoint::close(){
     if (this->impl) {
-        close(this->impl->model.socket);
+        //close(this->impl->model.socket);
         delete this->impl;
     }
     return IOEndpointStatus::IOES_OP_OK;
