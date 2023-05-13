@@ -53,15 +53,19 @@ TARGET_HEADER_DIRS += $(foreach dir,$(PROJECT_DIRS),-I$(dir))                   
 
 
 # 需要链接的库
-TARGET_LIBS = -lstdc++ -lmodule
+TARGET_LIBS = -lstdc++ -lmodule -lmodel
 
 ASFLAGS =
 CCFLAGS = -c -fPIC -Wall -fvisibility=hidden -std=c++11
 PPFLAGS = -c -fPIC -Wall -fvisibility=hidden -std=c++11
+LDFLAGS =
 
 ifdef SUPER_INCLUDE_PATH
     CCFLAGS += -I${SUPER_INCLUDE_PATH}
 	PPFLAGS += -I${SUPER_INCLUDE_PATH}
+endif
+ifdef SUPER_LIBRARY_PATH
+    LDFLAGS += -L${SUPER_LIBRARY_PATH}
 endif
 # 平台检测 -- DARWIN
 ifeq (${PLATFORM_ARCH},${PLATFORM_ARCH_DARWIN})
@@ -101,7 +105,7 @@ ${TARGET_LIB_DIR}/${TARGET_NAME}.${TARGET_LIB_EXT_STATIC}:$(TARGET_OBJECTS_PP) $
 	$(AR) -crvs $@ $^
 
 ${TARGET_LIB_DIR}/${TARGET_NAME}.${TARGET_LIB_EXT_DYNAMIC}:$(TARGET_OBJECTS_PP) $(TARGET_OBJECTS_CC) $(TARGET_OBJECTS_AS)
-	$(CC) -fPIC -shared $(TARGET_LIBS) -o $@ $^
+	$(CC) -fPIC -shared $(TARGET_LIBS) -o $@ $^ ${LDFLAGS}
 
 $(TARGET_OBJECTS_AS):%.o:%.s
 	$(AS) ${ASFLAGS} $< -o $@
