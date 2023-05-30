@@ -34,9 +34,9 @@ static std::map<std::string,Module*> IOEVENT_MODULE_MAP_INSTANCE;
  * Boot Engines 
  * 
  * */
-int libioevent_startup(const Model& model) {
-    const ME* const engines = model.subelementAt("engines");
-
+int libioevent_startup(Model& model) {
+    const ME* engines = model.subelementAt("engines");
+    /*
     if(engines) {
         std::cout << "libIOEvent : engines found."<<std::endl;
         std::cout << "libIOEvent : engiens count: " << engines->subelementCount() << std::endl;
@@ -53,7 +53,7 @@ int libioevent_startup(const Model& model) {
                 //std::cout << "libIOEvent: moudle path - "; printf("%s",path); std::cout << std::endl;
                 Module* m = new Module(path);
                 ModuleInterface* interface = m->interface();
-                /*
+                
                 if(interface) {
                     IOEngine* engine = static_cast<IOEngine*>(interface->createObject("engine"));
                 }
@@ -61,7 +61,7 @@ int libioevent_startup(const Model& model) {
                 Module* module = new Module("/usr/local/lib/IOEngineLWS.so");
 
                 ModuleInterface* interface = module->interface();
-                */
+                
                 if(interface) {
                     std::cout << "libIOEvent : IOEngineLWS - Interface loaded." << std::endl;
 
@@ -89,10 +89,11 @@ int libioevent_startup(const Model& model) {
     } else {
       std::cout << "IOEvent : no engine found." << std::endl;
     }
+    */
     return 0;
 }
 
-int foxintangoAPI libioevent_reload(const Model& model) {
+int foxintangoAPI libioevent_reload(Model& model) {
     return 0;
 }
 

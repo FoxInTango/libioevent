@@ -51,8 +51,8 @@ extern "C" {
 /** Load IOEngine   Modules
  *  Load IOBusiness Modules
  * */
-int foxintangoAPI libioevent_startup(const Model& model);
-int foxintangoAPI libioevent_reload(const Model& model);
+int foxintangoAPI libioevent_startup(Model& model);
+int foxintangoAPI libioevent_reload(Model& model);
 int foxintangoAPI libioevent_shutdown();
 
 #ifdef __cplusplus
