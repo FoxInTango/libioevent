@@ -35,7 +35,7 @@ static std::map<std::string,Module*> IOEVENT_MODULE_MAP_INSTANCE;
  * 
  * */
 int libioevent_startup(const Model& model) {
-    ME* engines = model.subelementAt("engines");
+    const ME* const engines = model.subelementAt("engines");
 
     if(engines) {
         std::cout << "libIOEvent : engines found."<<std::endl;
