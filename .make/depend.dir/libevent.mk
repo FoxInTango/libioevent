@@ -1,9 +1,9 @@
-DEPEND_TARGETS += libevent.build
+DEPEND_TARGETS += libevent.recursive
 ECHO_TARGETS += libevent.echo
-libevent.build:
+libevent.recursive:
 	@echo SUPER_MAKE_DIR=/mnt/d/CORE_WEB_SYSTEM_WEB/alpine/libraries/libioevent/               >> /mnt/d/CORE_WEB_SYSTEM_WEB/alpine/libraries/libevent/.make/super
 	@echo SUPER_MAKE_CONFIG_DIR=/mnt/d/CORE_WEB_SYSTEM_WEB/alpine/libraries/libioevent/.make >> /mnt/d/CORE_WEB_SYSTEM_WEB/alpine/libraries/libevent/.make/super
-	cd /mnt/d/CORE_WEB_SYSTEM_WEB/alpine/libraries/libevent/ && make && make install
+	cd /mnt/d/CORE_WEB_SYSTEM_WEB/alpine/libraries/libevent/ && make recursive && make install
 	-rm /mnt/d/CORE_WEB_SYSTEM_WEB/alpine/libraries/libevent/.make/super
 libevent.echo:
 	@echo SUPER_MAKE_DIR=/mnt/d/CORE_WEB_SYSTEM_WEB/alpine/libraries/libioevent/               >> /mnt/d/CORE_WEB_SYSTEM_WEB/alpine/libraries/libevent/.make/super
