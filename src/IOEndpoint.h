@@ -81,6 +81,7 @@ typedef enum _IOEndpointStatus {
  *                  }
  *  }
  */
+/*
 class foxintangoAPI IOEndpoint{
 public:
     IOEndpoint();
@@ -110,6 +111,7 @@ public:
     //int appendSessionHandler(EventSessionHandler* handler);
     //int removeSessionHandler(EventSessionHandler* handler);
 };
+*/
 namespaceEnd
 EXTERN_C_END
 #endif

@@ -41,7 +41,7 @@ using namespace foxintango;
 #include <atomic>
 #include <fcntl.h>
 #include <sys/sendfile.h>
-
+/*
 IOEndpoint::IOEndpoint() {
 }
 
@@ -69,3 +69,4 @@ IOEndpointStatus IOEndpoint::readable() {
 IOEndpointStatus IOEndpoint::close(){
     return IOEndpointStatus::IOES_OP_OK;
 }
+*/
