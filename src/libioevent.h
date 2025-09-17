@@ -24,14 +24,10 @@
 #ifndef _LIB_IO_EVENT_H_
 #define _LIB_IO_EVENT_H_
 
-#include "IOEngine.h"
 #include "IOEndpoint.h"
-#include "IOEvent.h"
-#include "IOHandler.h"
-#include "IOSession.h"
 
+#include <libast/libast.h>
 #include <libmodule/libmodule.h>
-#include <libmodel/libmodel.h>
 #include <libcpp/libcpp.h>
 using namespace foxintango;
 
@@ -51,8 +47,8 @@ extern "C" {
 /** Load IOEngine   Modules
  *  Load IOBusiness Modules
  * */
-int foxintangoAPI libioevent_startup(Model& model);
-int foxintangoAPI libioevent_reload(Model& model);
+int foxintangoAPI libioevent_startup();
+int foxintangoAPI libioevent_reload();
 int foxintangoAPI libioevent_shutdown();
 
 #ifdef __cplusplus

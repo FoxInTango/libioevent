@@ -42,146 +42,16 @@ using namespace foxintango;
 #include <fcntl.h>
 #include <sys/sendfile.h>
 
-inline int platform_bind();
-inline int platform_listen();
-inline int platform_accept();
-inline int platform_connect();
-inline int platform_read();
-inline int platform_write();
-inline int platform_close();
-namespaceBegin(foxintango)
-struct io_endpoint_model_s {
-    bool  initialized;
-    int   socket;
-    std::string name;
-    std::string address;
-    unsigned short port;
-    IOEndpointType type;
-    IOEndpointStatus status;
-};
-class IOEndpointIMPL {
-public:
-    io_endpoint_model_s model;
-    std::vector<std::string> sessionList;
-    std::map<std::string,IOSession*> sessionMap;
-public:
-    IOEndpointIMPL() {
-        model.initialized = false;
-    }
-
-    ~IOEndpointIMPL() {
-        std::map<std::string, IOSession*>::iterator iter = sessionMap.begin();
-
-        while(iter != sessionMap.end()) {
-            delete (*iter).second;
-            sessionMap.erase(iter);
-            iter ++;
-        }
-    }
-};
-namespaceEnd
-
 IOEndpoint::IOEndpoint() {
-    this->impl = new IOEndpointIMPL();
-}
-
-IOEndpoint::IOEndpoint(const Model& type) {
-    this->impl = new IOEndpointIMPL();
 }
 
 IOEndpoint::IOEndpoint(const char* address, const unsigned short port, const IOEndpointType& type) {
-    this->impl = new IOEndpointIMPL();
 }
 
 IOEndpoint::~IOEndpoint() {
-    if(this->impl) {
-        close();
-        delete this->impl;
-    }
 }
 
 IOEndpointStatus IOEndpoint::listen() {
-    if(this->impl && this->impl->model.address.length()){
-        // TODO 清理
-        struct sockaddr_in listen_addr;
-        memset(&listen_addr, 0, sizeof(sockaddr_in));
-        if(!this->impl->model.socket) {
-            
-            listen_addr.sin_port = htons(this->impl->model.port);
-            listen_addr.sin_addr.s_addr = inet_addr(this->impl->model.address.c_str());
-            switch (this->impl->model.type){
-            case IOET_LISTEN_UDP:{
-                listen_addr.sin_family = AF_INET;
-                this->impl->model.socket = socket(AF_INET, SOCK_DGRAM, 0);
-            }break;
-            case IOET_LISTEN_TCP:{
-                listen_addr.sin_family = AF_INET;
-                this->impl->model.socket = socket(AF_INET, SOCK_STREAM, 0);
-            }break;
-            case IOET_LISTEN_UNIX:{}break;
-            case IOET_LISTEN_NETLINK: {}break;
-            case IOET_CONNECT_UDP: {
-                listen_addr.sin_family = AF_INET;
-                this->impl->model.socket = socket(AF_INET, SOCK_DGRAM, 0);
-            }break;
-            case IOET_CONNECT_TCP: {
-                listen_addr.sin_family = AF_INET;
-                this->impl->model.socket = socket(AF_INET, SOCK_STREAM, 0);
-            }break;
-            case IOET_CONNECT_UNIX: {}break;
-            case IOET_CONNECT_NETLINK: {}break;
-            default:break;
-            }
-        }
-        
-        //bind(this->impl->model.socket, (struct sockaddr*)&listen_addr, sizeof(listen_addr));
-        //listen(this->impl->model.socket, 0);
-    }
-    return IOEndpointStatus::IOES_OP_FAILED;
-}
-IOEndpointStatus IOEndpoint::listen(const char* address, const unsigned short port){
-    if (this->impl) {
-        // TODO 清理
-        this->impl->model.address = address;
-        struct sockaddr_in listen_addr;
-        memset(&listen_addr, 0, sizeof(sockaddr_in));
-        if (!this->impl->model.socket) {
-
-            listen_addr.sin_port = htons(this->impl->model.port);
-            listen_addr.sin_addr.s_addr = inet_addr(this->impl->model.address.c_str());
-            switch (this->impl->model.type) {
-            case IOET_LISTEN_UDP: {
-                listen_addr.sin_family = AF_INET;
-                this->impl->model.socket = socket(AF_INET, SOCK_DGRAM, 0);
-            }break;
-            case IOET_LISTEN_TCP: {
-                listen_addr.sin_family = AF_INET;
-                this->impl->model.socket = socket(AF_INET, SOCK_STREAM, 0);
-            }break;
-            case IOET_LISTEN_UNIX: {}break;
-            case IOET_LISTEN_NETLINK: {}break;
-            case IOET_CONNECT_UDP: {
-                listen_addr.sin_family = AF_INET;
-                this->impl->model.socket = socket(AF_INET, SOCK_DGRAM, 0);
-            }break;
-            case IOET_CONNECT_TCP: {
-                listen_addr.sin_family = AF_INET;
-                this->impl->model.socket = socket(AF_INET, SOCK_STREAM, 0);
-            }break;
-            case IOET_CONNECT_UNIX: {}break;
-            case IOET_CONNECT_NETLINK: {}break;
-            default:break;
-            }
-        }
-
-        //bind(this->impl->model.socket, (struct sockaddr*)&listen_addr, sizeof(listen_addr));
-        //listen(this->impl->model.socket, 0);
-    }
-    return IOEndpointStatus::IOES_OP_FAILED;
-    return IOEndpointStatus::IOES_OP_FAILED;
-}
-IOEndpointStatus IOEndpoint::accept(){
-    //accept(listen_sock, &remote_address, &remote_count)
     return IOEndpointStatus::IOES_OP_FAILED;
 }
 IOEndpointStatus IOEndpoint::connect(const char* address, const unsigned short port, const IOEndpointType& type){
@@ -197,9 +67,5 @@ IOEndpointStatus IOEndpoint::readable() {
     return IOEndpointStatus::IOES_UNREADABLE;
 }
 IOEndpointStatus IOEndpoint::close(){
-    if (this->impl) {
-        //close(this->impl->model.socket);
-        delete this->impl;
-    }
     return IOEndpointStatus::IOES_OP_OK;
 }

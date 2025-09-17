@@ -24,9 +24,8 @@
 #ifndef _IO_ENDPOINT_H_
 #define _IO_ENDPOINT_H_
 
-#include "IOHandler.h"
 #include <libevent/libevent.h>
-#include <libmodel/libmodel.h>
+//#include <libmodel/libmodel.h>
 #include <libcpp/libcpp.h>
 
 EXTERN_C_BEGIN
@@ -82,21 +81,15 @@ typedef enum _IOEndpointStatus {
  *                  }
  *  }
  */
-
-class IOEndpointIMPL;
-class foxintangoAPI IOEndpoint :public EventTarget {
-private:
-    IOEndpointIMPL* impl;
+class foxintangoAPI IOEndpoint{
 public:
     IOEndpoint();
-    IOEndpoint(const Model& model);
     IOEndpoint(const char* address,const unsigned short port,const IOEndpointType& type);
     virtual ~IOEndpoint();
 public:
     unsigned int sessionCount();
-    IOSession* sessionAt(const unsigned int& index);
-    IOSession* sessionFrom(const char* from);
-    virtual int socketID() const;
+    EventSession* sessionAt(const unsigned int& index);
+    EventSession* sessionFrom(const char* from);
     virtual IOEndpointStatus status();
 public:
     virtual IOEndpointStatus listen();
@@ -108,14 +101,14 @@ public:
     virtual IOEndpointStatus readable();
     virtual IOEndpointStatus close();
 protected:
-    unsigned int appendSession(IOSession* session,const char* from);
-    unsigned int removeSession(IOSession* session);
+    unsigned int appendSession(EventSession* session,const char* from);
+    unsigned int removeSession(EventSession* session);
     unsigned int removeSession(const char* from);
 public:
-    int appendEventHandler(IOEventHandler* handler);
-    int removeEventHandler(IOEventHandler* handler);
-    int appendSessionHandler(IOSessionHandler* handler);
-    int removeSessionHandler(IOSessionHandler* handler);
+    int appendEventHandler(EventHandler* handler);
+    int removeEventHandler(EventHandler* handler);
+    //int appendSessionHandler(EventSessionHandler* handler);
+    //int removeSessionHandler(EventSessionHandler* handler);
 };
 namespaceEnd
 EXTERN_C_END
